@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 function verificarToken(req, res, next) {
-    const token = req.headers.autorization;
+    const token = req.headers.authorization;
 
     console.log(token)
 
@@ -9,7 +10,9 @@ function verificarToken(req, res, next) {
         return res.status(401).json({ message: "Token não fornecido."});
     }
 
-    jwt.verify(token, 'awrgb24Yçoaih4uy24SDBNESJhç4GNH98hgbOWIVNOÇJH4GÇO42GHVJÇOwhbH4', (err, decoded) => {
+    const chaveSecreta = crypto.randomBytes(32).toString('hex');
+
+    jwt.verify(token, 'MinhaChaveSecreta', (err, decoded) => {
         if(err) {
             return res.status(401).json({ message: "Token inválido."});
         }
