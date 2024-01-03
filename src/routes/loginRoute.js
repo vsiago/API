@@ -25,8 +25,9 @@ loginRouter.post('/login', async (req, res) => {
         }
 
         // Gerar token JWT
-        const token = jwt.sign({ userId: user._id, email: user.email }, 'MinhaChaveSecreta', { expiresIn: '1h'})
-
+        const token = jwt.sign({ userId: user._id, email: user.email }, 'MinhaChaveSecreta', { expiresIn: '10m'})
+        
+        console.log(token)
         // Login bem sucedido
         res.status(200).json({ token })
     } catch (error) {
