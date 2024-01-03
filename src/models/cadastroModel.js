@@ -15,6 +15,9 @@ const cadastroSchema = new mongoose.Schema({
         required: true,
         unique: true,
       },
+      name: {
+        type: String,
+      }
 });
 
 const Cadastro = mongoose.model('Cadastro', cadastroSchema)

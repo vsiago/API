@@ -5,7 +5,7 @@ const Cadastro = require("../models/cadastroModel")
 const cadastroRouter = express.Router();
 
 cadastroRouter.post('/cadastro', async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, name } = req.body;
 
     // Validações assincronas
     try {
@@ -23,6 +23,7 @@ cadastroRouter.post('/cadastro', async (req, res) => {
             username,
             email,
             password: hashedPassword,
+            name
         });
 
         // Salvar no banco de dados

@@ -36,4 +36,16 @@ loginRouter.post('/login', async (req, res) => {
     }
 });
 
+loginRouter.get('/listar-usuarios', async (req, res) => {
+    try {
+        // Certifique-se de que a rota só seja acessível por usuários autenticados (com um token válido)
+        const usuarios = await Cadastro.find({}, { password: 0 }); // O segundo argumento ({ password: 0 }) exclui a senha da resposta
+
+        res.status(200).json(usuarios);
+    } catch (error) {
+        console.error('Erro ao listar usuários:', error.message);
+        res.status(500).json({ message: "Erro ao listar usuários." });
+    }
+})
+
 module.exports = loginRouter;
