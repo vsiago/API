@@ -1,8 +1,10 @@
 const express = require("express");
-const cadastroRouter = require('../routes/cadastroRoute');
-const loginRouter = require('../routes/loginRoute');
 const verificarToken = require('../middleware/authMiddleware');
 const cors = require('cors')
+
+const cadastroRouter = require('../routes/cadastroRoute');
+const loginRouter = require('../routes/loginRoute');
+const todoRoute = require('../routes/todoRoute')
 
 const app = express();
 app.use(express.json());
@@ -11,6 +13,7 @@ app.use(cors())
 // Uso de rotas
 app.use('/api', cadastroRouter);
 app.use('/api', loginRouter);
+app.use('/api', todoRoute);
 
 // Rota protegida
 app.get('/api/dashboard', verificarToken, (req, res) => {
