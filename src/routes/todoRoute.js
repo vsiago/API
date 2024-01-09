@@ -1,4 +1,5 @@
 const express = require('express');
+const verificarToken = require('../middleware/authMiddleware');
 const Todo = require('../models/todoModel');
 
 const todoRoute = express.Router();
@@ -64,6 +65,21 @@ todoRoute.delete('/delete/:todoId', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+});
+
+// Rota para recuperar todas as tarefas de um usuário específico
+todoRoute.get('/listar-todos-usuario', verificarToken, async (req, res) => {
+    try {
+        const userId = req.usuario.userId;
+
+        // Obter todos os Todos associados ao usuário atual
+        const todos = await Todo.find({ userId });
+
+        res.status(200).json({ user: req.usuario, todos });
+    } catch (error) {
+        console.error("Erro ao listar todos do usuário:", error.message);
+        res.status(500).json({ message: "Erro ao listar todos do usuário." });
     }
 });
 
