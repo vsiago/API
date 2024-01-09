@@ -50,4 +50,21 @@ todoRoute.patch('/update/:todoId', async (req, res) => {
     }
 });
 
+// Rota para apagar uma tarefa
+todoRoute.delete('/delete/:todoId', async (req, res) => {
+    try {
+        const todoId = req.params.todoId;
+
+        const deletedTodo = await Todo.findByIdAndDelete(todoId);
+
+        if (deletedTodo) {
+            res.json({ message: 'Tarefa removida com sucesso.' });
+        } else {
+            res.status(404).json({ message: 'Tarefa não encontrada.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = todoRoute;
