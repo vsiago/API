@@ -3,7 +3,7 @@ const verificarToken = require('../middleware/authMiddleware');
 const cors = require('cors')
 
 const cadastroRouter = require('../routes/cadastroRoute');
-const loginRouter = require('../routes/loginRoute');
+const signIn = require('../routes/signInRoute');
 const todoRoute = require('../routes/todoRoute')
 
 const app = express();
@@ -12,7 +12,7 @@ app.use(cors())
 
 // Uso de rotas
 app.use('/api', cadastroRouter);
-app.use('/api', loginRouter);
+app.use('/api', signIn);
 app.use('/api', todoRoute);
 
 // Rota protegida

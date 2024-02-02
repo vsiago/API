@@ -3,9 +3,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Cadastro = require("../models/cadastroModel");
 
-const loginRouter = express.Router();
+const signInRoute = express.Router();
 
-loginRouter.post("/login", async (req, res) => {
+signInRoute.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -25,7 +25,7 @@ loginRouter.post("/login", async (req, res) => {
 
     // Login bem sucedido - retorna o objeto completo do usuário
     res.status(200).json({
-      _id: user._id,
+      userId: user._id,
       username: user.username,
       email: user.email,
       name: user.name,
@@ -48,7 +48,7 @@ loginRouter.post("/login", async (req, res) => {
   }
 });
 
-loginRouter.get("/listar-usuarios", async (req, res) => {
+signInRoute.get("/listar-usuarios", async (req, res) => {
   try {
     // Certifique-se de que a rota só seja acessível por usuários autenticados (com um token válido)
     const usuarios = await Cadastro.find({}, { password: 0 }); // O segundo argumento ({ password: 0 }) exclui a senha da resposta
@@ -60,4 +60,4 @@ loginRouter.get("/listar-usuarios", async (req, res) => {
   }
 });
 
-module.exports = loginRouter;
+module.exports = signInRoute;
