@@ -5,6 +5,7 @@ const cors = require('cors')
 const cadastroRouter = require('../routes/cadastroRoute');
 const signIn = require('../routes/signInRoute');
 const todoRoute = require('../routes/todoRoute')
+const pontosOnibus = require('../routes/pontoOnibus')
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(cors())
 app.use('/api', cadastroRouter);
 app.use('/api', signIn);
 app.use('/api', todoRoute);
+app.use('/api', pontosOnibus);
 
 // Rota protegida
 app.get('/api/dashboard', verificarToken, (req, res) => {
